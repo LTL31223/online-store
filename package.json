@@ -2,7 +2,7 @@
 	"name": "online-store",
 	"version": "1.0.0",
 	"description": "recommendation microservices",
-	"main": "index.js",
+	"main": "./server/server.ts",
 	"author": "Cho, Htin, Julian, Ying",
 	"license": "MIT",
 	"scripts": {
@@ -12,10 +12,13 @@
 		"test": "export NODE_ENV=test; jest"
 	},
 	"nodemonConfig": {
+		"watch": ["src"],
+		"ext": ".ts,.js",
 		"ignore": [
 			"build",
 			"client"
-		]
+		],
+		"exec": "npx ts-node ./server/server.ts"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.21.4",
@@ -31,6 +34,7 @@
 		"sass-loader": "^13.2.2",
 		"source-map-loader": "^4.0.1",
 		"style-loader": "^3.3.2",
+		"ts-node": "^10.9.1",
 		"webpack": "^5.77.0",
 		"webpack-cli": "^5.0.1",
 		"webpack-dev-server": "^4.13.2"
