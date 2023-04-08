@@ -1,7 +1,7 @@
-const path = require('path');
-const express = require('express');
+import express from 'express';
+import path from 'path';
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 const app = express();
 app.use(express.json());
@@ -10,9 +10,8 @@ app.use(express.json());
 // app.use('/build', express.static(path.join(__dirname, '../build')));
 // Serve index.html on the route '/'
 app.get('/', (req, res) => {
-	// return res.status(200).sendFile(path.join(__dirname, '../index.html'));
-	console.log("Hello!");
-	return res.status(200).send({"Hi": "Ying"});
+	console.log('hi team');
+	return res.status(200).sendFile(path.join(__dirname, '../index.html'));
 });
 
 app.listen(PORT, () => {

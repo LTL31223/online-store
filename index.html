@@ -10,6 +10,7 @@
 		<div id="root"></div>
 		<!--  Directs to webpack bundle under production mode -->
 		<!--  Comment out to prevent browser console error durring development -->
-		<script src="build/bundle.js"></script>
+		<!--  type="text/javascript" is absolutely necessary to avoid the following issue:: "fused to execute script from 'http://localhost:3000/build/bundle.js' because its MIME type ('text/html') is not executable, and strict MIME type checking is enabled."-->
+		<script defer="defer" type="text/javascript" src="build/bundle.js"></script>
 	</body>
 </html>
