@@ -6,17 +6,13 @@ module.exports = {
 	entry: './client/index.tsx',
 	output: {
 		path: path.resolve(__dirname, 'build'),
+		publicPath: '/build',
 		filename: 'bundle.js'
 	},
-	devServer: {
-		static: {
-			publicPath: './build',
-			directory: path.resolve(__dirname, 'build')
-		},
-		proxy: {
-			'/api': 'http://localhost:3000'
-		},
-		historyApiFallback: true
+
+	resolve: {
+		// Enable importing JS / JSX files without specifying their extension
+		extensions: ['.js', '.jsx', '.tsx', '.ts']
 	},
 	plugins: [
 		new HtmlWebpackPlugin({
@@ -32,8 +28,10 @@ module.exports = {
 				use: {
 					loader: 'babel-loader',
 					options: {
-						presets: ['@babel/preset-env', '@babel/preset-react']
+						presets: ['@babel/preset-env', '@babel/preset-react'],
+						plugins: ['@babel/plugin-syntax-jsx']
 					}
+					// exclude: /npm_modules/
 				}
 			},
 			{
@@ -61,10 +59,26 @@ module.exports = {
 						loader: 'file-loader'
 					}
 				]
+			},
+			{
+				test: /\.tsx?$/,
+				use: 'ts-loader',
+				exclude: /node_modules/
 			}
 		]
 	},
-
+	devServer: {
+		static: {
+			publicPath: './build',
+			directory: path.resolve(__dirname, 'build/index.html')
+		},
+		proxy: {
+			'/': 'http://localhost:3000'
+		},
+		compress: true,
+		port: 8080
+		// historyApiFallback: true
+	},
 	performance: {
 		hints: false
 	}
